@@ -20,7 +20,7 @@ init() {
     fi
 
     dc yml 'docker-compose.yml';
-    dc yml_if 'docker-compose-blackfire.yml' 'conf/blackfire';
+    dc yml_if 'build/docker-compose-blackfire.yml' 'conf/blackfire';
     dc yml_if 'docker-custom.yml' 'docker-custom.yml';
     dc yml_os
 
@@ -95,11 +95,11 @@ dc() {
     }
 
     yml_all() {
-        yml_if 'docker-compose-blackfireclient.yml' 'conf/blackfire';
-        yml 'docker-compose-dbclient.yml';
-        yml 'docker-compose-mytop.yml';
-        yml 'docker-compose-ngrok.yml';
-        yml 'docker-compose-ctop.yml';
+        yml_if 'build/docker-compose-blackfireclient.yml' 'conf/blackfire';
+        yml 'build/docker-compose-dbclient.yml';
+        yml 'build/docker-compose-mytop.yml';
+        yml 'build/docker-compose-ngrok.yml';
+        yml 'build/docker-compose-ctop.yml';
     }
 
     yml() {
@@ -111,9 +111,9 @@ dc() {
 
     yml_os() {
         if [[ "$(uname)" == 'Darwin' ]]; then
-            DEV_YML=${DEV_YML}' -f '${DEV_WORKDIR}'/docker-compose-osx.yml';
+            DEV_YML=${DEV_YML}' -f '${DEV_WORKDIR}'/build/docker-compose-osx.yml';
         else
-            DEV_YML=${DEV_YML}' -f '${DEV_WORKDIR}'/docker-compose-linux.yml';
+            DEV_YML=${DEV_YML}' -f '${DEV_WORKDIR}'/build/docker-compose-linux.yml';
         fi
     }
 
@@ -129,7 +129,7 @@ dc() {
     return $?
 }
 
-exec() {
+dc_exec() {
     # Load command
     # Can exit if implemented itself
     . ./${DEV_COMMAND} $*;
@@ -148,7 +148,7 @@ main() {
     init $@;
     shift;
 
-    ${DEV_EXISTS} && exec $@ || usage;
+    ${DEV_EXISTS} && dc_exec $@ || usage;
 }
 
 main $@;

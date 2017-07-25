@@ -8,7 +8,7 @@ services:
   db:
     image: percona
     volumes:
-    - ./conf.d/mysql:/etc/mysql/conf.d:ro
+    - ./build/conf.d/mysql:/etc/mysql/conf.d:ro
     - dockerdev-mysql-volume:/var/lib/mysql:rw
     env_file:
       - ./conf/mysql
@@ -22,7 +22,7 @@ services:
 
   php:
     build:
-      context: php7
+      context: build/php7
     links:
     - db
     - mailcatch
@@ -34,7 +34,7 @@ services:
     network_mode: bridge
   php5:
     build:
-      context: php5
+      context: build/php5
     links:
     - db
     - mailcatch
@@ -46,7 +46,7 @@ services:
     network_mode: bridge
   php71:
     build:
-      context: php71
+      context: build/php71
     links:
     - db
     - mailcatch
@@ -63,7 +63,7 @@ services:
 
   web:
     build:
-      context: web
+      context: build/web
     links:
     - mailcatch
     - php:fpm
@@ -74,3 +74,4 @@ services:
     ports:
     - 127.0.0.1:443:443
     - 127.0.0.1:80:80
+

@@ -13,4 +13,4 @@ services:
   web:
     volumes:
     - ./workspace:/data:ro
-    - ./web/nginx:/etc/nginx:ro
+    - ./build/web/nginx:/etc/nginx:ro
