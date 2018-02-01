@@ -8,7 +8,7 @@ You can access the database in your app using `db` as hostname.
 
 We use [Mailhog][1] to catch all outgoing e-mail (as long as you aren't using an external API).
 You can even release the e-mail to a real mailserver, just click the release button in Mailhog you can setup and presto.
-Goto [http://mail.locahost/][2] to see all catched mail.
+Goto [http://mail.localhost/][2] to see all catched mail.
 
 # Redis
 
